@@ -1,0 +1,44 @@
+{% set name = "python-louvain" %}
+{% set version = "0.11" %}
+{% set file_ext = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "2ce7143f8d2bb4693a84dc0046dbf94dc576c9f6030f518f73c4420bfb2a442a" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  fn: '{{ name }}-{{ version }}.{{ file_ext }}'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ file_ext }}
+  '{{ hash_type }}': '{{ hash_value }}'
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - networkx
+  run:
+    - python
+    - networkx
+
+test:
+  imports:
+    - community
+
+about:
+  home: https://github.com/taynaud/python-louvain
+  license: BSD
+  license_family: BSD
+  license_file: ''
+  summary: Louvain algorithm for community detection
+  description: ''
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''
